@@ -14,6 +14,8 @@ public final class HotKey {
 	public let keyCombo: KeyCombo
 	public var keyDownHandler: Handler?
 	public var keyUpHandler: Handler?
+    public var passthrough: Bool
+    
     public var isPaused = false {
         didSet {
             if isPaused {
@@ -26,10 +28,11 @@ public final class HotKey {
 
 	// MARK: - Initializers
 
-	public init(keyCombo: KeyCombo, keyDownHandler: Handler? = nil, keyUpHandler: Handler? = nil) {
+    public init(keyCombo: KeyCombo, keyDownHandler: Handler? = nil, keyUpHandler: Handler? = nil, passthrough: Bool = false) {
 		self.keyCombo = keyCombo
 		self.keyDownHandler = keyDownHandler
 		self.keyUpHandler = keyUpHandler
+        self.passthrough = passthrough
 
 		HotKeysController.register(self)
 	}

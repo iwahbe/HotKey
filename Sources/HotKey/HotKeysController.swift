@@ -128,12 +128,12 @@ final class HotKeysController {
 		case UInt32(kEventHotKeyPressed):
 			if !hotKey.isPaused, let handler = hotKey.keyDownHandler {
 				handler()
-				return noErr
+				return !hotKey.passthrough ? noErr : OSStatus(eventNotHandledErr)
 			}
 		case UInt32(kEventHotKeyReleased):
 			if !hotKey.isPaused, let handler = hotKey.keyUpHandler {
 				handler()
-				return noErr
+                return !hotKey.passthrough ? noErr : OSStatus(eventNotHandledErr)
 			}
 		default:
 			break
